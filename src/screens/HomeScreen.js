@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import React, {useEffect} from 'react';
+import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons'; // ✅ Importa íconos de Expo
 import ItemListContainer from '../items/ItemListContainer';
@@ -8,9 +8,14 @@ import MiPerfil from './MiPerfil';
 import OrdersScreen from './OrdersScreen';
 
 function HomeTab() {
+
+  useEffect(() => {
+    Alert.alert('¡Bienvenido!', 'Estás autenticado.');
+  }, []);
+
+
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.welcomeText}>¡Bienvenido! Estás autenticado.</Text>
       <ItemListContainer />
     </SafeAreaView>
   );
@@ -32,6 +37,8 @@ const HomeScreen = () => {
             iconName = focused ? 'cart' : 'cart-outline';
           } else if (route.name === 'MiPerfil') {
             iconName = focused ? 'person' : 'person-outline';
+          }else if (route.name === 'Pedidos') {
+            iconName = focused ? 'list' : 'list-outline';
           }
 
           return <Ionicons name={iconName} size={size} color={color} />;
