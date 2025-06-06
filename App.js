@@ -9,8 +9,8 @@ export default function App() {
     <Provider store={store}>
       <CartProvider>
         <AppNavigator />
-      </CartProvider>
-      
+      </CartProvider>    
     </Provider>
   );
 }
+

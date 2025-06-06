@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ItemListContainer from '../items/ItemListContainer';
 import CarritoScreen from './CarritoScreen';
+import MiPerfil from './MiPerfil';
 
 function HomeTab() {
   return (
@@ -19,7 +20,9 @@ const HomeScreen = () => {
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
       <Tab.Screen name="Home" component={HomeTab} />
-      <Tab.Screen name="CarritoScreen" component={CarritoScreen} />
+      <Tab.Screen name="Carrito" component={CarritoScreen} />
+      <Tab.Screen name="MiPerfil" component={MiPerfil} />
+      
       {/* Aquí puedes agregar más tabs si lo necesitas */}
     </Tab.Navigator>
   );

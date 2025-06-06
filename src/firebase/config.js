@@ -5,7 +5,11 @@ import {
   getAuth
 } from 'firebase/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getFirestore, getDocs, collection } from 'firebase/firestore';
+import {
+  getFirestore,
+  getDocs,
+  collection
+} from 'firebase/firestore';
 
 // 🔐 Configuración de Firebase
 const firebaseConfig = {
@@ -17,34 +21,25 @@ const firebaseConfig = {
   appId: "1:329445921322:web:45846e6d162a479e05e953"
 };
 
-// 🔄 Inicialización de Firebase App
+// 🔄 Inicialización de Firebase App (singleton)
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-// 🔐 Inicialización de Auth con AsyncStorage (solo si no fue inicializado)
-let authInstance;
-export const getFirebaseAuth = () => {
-  if (!authInstance) {
-    authInstance = initializeAuth(app, {
-      persistence: getReactNativePersistence(AsyncStorage),
-    });
-  }
-  return authInstance;
-};
-
-// También podés exportar directamente el Auth estándar (opcional)
-export const auth = getAuth(app);
+// 🔐 Inicialización de Auth con AsyncStorage para persistencia
+export const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(AsyncStorage),
+});
 
 // 🔥 Inicialización de Firestore
 export const db = getFirestore(app);
 
-// ✅ Obtener todos los productos de Firestore
+// ✅ Obtener todos los productos desde la colección 'products'
 export const getItems = async () => {
   const snapshot = await getDocs(collection(db, 'products'));
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };
 
-// ✅ Obtener los géneros (categories, etc.)
+// ✅ Obtener géneros desde la colección 'genres'
 export const getGenres = async () => {
   const snapshot = await getDocs(collection(db, 'genres'));
-  return snapshot.docs.map(doc => doc.data().name); // Ajustar según estructura real
+  return snapshot.docs.map(doc => doc.data().name);
 };
