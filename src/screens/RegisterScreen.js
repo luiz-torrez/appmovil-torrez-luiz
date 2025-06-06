@@ -22,7 +22,7 @@ export default function RegisterScreen({ navigation }) {
       Alert.alert('Registro exitoso');
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert('Error en registro', error.message);
+      Alert.alert('Error en registro');
     }
   };
 

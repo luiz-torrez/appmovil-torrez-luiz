@@ -12,7 +12,7 @@ export default function LoginScreen({ navigation }) {
       await signInWithEmailAndPassword(auth, email, password);
       navigation.navigate('Main');
     } catch (error) {
-      Alert.alert('Error en login', error.message);
+      Alert.alert('Error en login');
     }
   };
 
