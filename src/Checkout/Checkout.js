@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, Alert, StyleSheet } from 'react-native';
 import { CartContext } from '../context/CartContext';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase/config'; // Asegúrate de que tu archivo db.js exporta correctamente `db`
+import { db } from '../firebase/config';
 
 const Checkout = () => {
   const [pedidoId, setPedidoId] = useState('');

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { View, Text, StyleSheet, SafeAreaView, Alert } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons'; // ✅ Importa íconos de Expo
+import { Ionicons } from '@expo/vector-icons'; 
 import ItemListContainer from '../items/ItemListContainer';
 import CarritoScreen from './CarritoScreen';
 import MiPerfil from './MiPerfil';

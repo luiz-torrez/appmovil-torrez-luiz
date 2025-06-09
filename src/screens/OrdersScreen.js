@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet, ActivityIndicator } from 'react-native';
 import { getDocs, collection } from 'firebase/firestore';
 import { db } from '../firebase/config';
+import { format } from 'date-fns'; // Asegurate de instalar esto con `npm install date-fns`
 
 // 🛒 Función para obtener pedidos
 const fetchOrders = async () => {
@@ -15,6 +16,12 @@ const fetchOrders = async () => {
     console.error("Error al obtener los pedidos:", error);
     return [];
   }
+};
+
+// 🗓 Formatear fecha desde Firebase Timestamp
+const formatDate = (timestamp) => {
+  if (!timestamp?.toDate) return 'Sin fecha';
+  return format(timestamp.toDate(), 'dd/MM/yyyy HH:mm');
 };
 
 const OrdersScreen = () => {
@@ -32,7 +39,12 @@ const OrdersScreen = () => {
   }, []);
 
   if (loading) {
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+        <Text>Cargando pedidos...</Text>
+      </View>
+    );
   }
 
   return (
@@ -42,9 +54,10 @@ const OrdersScreen = () => {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={styles.orderItem}>
-            <Text style={styles.orderText}>Pedido ID: {item.id}</Text>
-            <Text style={styles.orderText}>Cliente: {item.nombre || 'Sin nombre'}</Text>
-            <Text style={styles.orderText}>Total: ${item.total || '0.00'}</Text>
+            <Text style={styles.orderText}>🆔 Pedido ID: {item.id}</Text>
+            <Text style={styles.orderText}>👤 Cliente: {item.email || 'Sin nombre'}</Text>
+            <Text style={styles.orderText}>💰 Total: ${item.total || '0.00'}</Text>
+            <Text style={styles.orderText}>📅 Fecha: {formatDate(item.date)}</Text>
           </View>
         )}
       />
@@ -57,11 +70,18 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
   },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   orderItem: {
     backgroundColor: '#f9f9f9',
-    padding: 10,
+    padding: 12,
     marginBottom: 10,
-    borderRadius: 5,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#ddd',
   },
   orderText: {
     fontSize: 16,
