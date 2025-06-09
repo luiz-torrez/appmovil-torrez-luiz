@@ -28,6 +28,18 @@ Este es un proyecto móvil desarrollado con **React Native** y **Expo**, que uti
 - `main`: `index.js`
 - Los comandos de scripts están configurados para correr en Android, iOS y web a través de Expo.
 
+## 🔧 Scripts disponibles
+
+```bash
+npm start         # Inicia el proyecto con Expo
+npm run android   # Abre en dispositivo/emulador Android
+npm run ios       # Abre en dispositivo/emulador iOS
+npm run web       # Corre la aplicación en navegador web
+
+
+
+
+ ``` 
 🔗 Repositorio
 GitHub - appmovil-torrez-luiz
 
